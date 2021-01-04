@@ -5,7 +5,6 @@ class MusicChoose:
 
         pygame.init()
         pygame.font.init()
-        print(pygame.font.get_fonts())
         size = 1350, 720
         screen = pygame.display.set_mode(size)
         bg = pygame.image.load("fon3.jpg")
@@ -73,24 +72,18 @@ class MusicChoose:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
-                    if 400 <= x <= 500 and 300 <= y <= 400:
-                        clas = HeatOfTheMoment()
-                        clas.show()
-                    elif 600 <= x <= 700 and 300 <= y <= 400:
-                        clas = FellOnBlackDays()
-                        clas.show()
-                    elif 800 <= x <= 900 and 300 <= y <= 400:
-                        clas = HighwayToHell()
-                        clas.show()
-                    elif 400 <= x <= 500 and 450 <= y <= 550:
-                        clas = ODeath()
-                        clas.show()
-                    elif 600 <= x <= 700 and 450 <= y <= 550:
-                        clas = GodWasNever()
-                        clas.show()
-                    elif 800 <= x <= 900 and 450 <= y <= 550:
-                        clas = BlackSubmarines()
-                        clas.show()
+                    if 300 <= x <= 510 and 300 <= y <= 400:
+                        self.song = "heat_of_the_moment.mp3"
+                    elif 550 <= x <= 760 and 300 <= y <= 400:
+                        self.song = "fell_on_black_days.mp3"
+                    elif 800 <= x <= 1010 and 300 <= y <= 400:
+                        self.song = "highway_to_hell.mp3"
+                    elif 300 <= x <= 510 and 450 <= y <= 550:
+                        self.song = "o_death.mp3"
+                    elif 550 <= x <= 760 and 450 <= y <= 550:
+                        self.song = "god_was_never.mp3"
+                    elif 800 <= x <= 1010 and 450 <= y <= 550:
+                        self.song = "little_black_submarines.mp3"
         pygame.quit()
 if __name__ == '__main__':
     start = MusicChoose()
