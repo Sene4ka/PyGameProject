@@ -19,7 +19,7 @@ screen.blit(button, loc)
 pygame.display.update()
 running = True
 checking = True
-menu = Menu()
+menu = Menu(screen)
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
