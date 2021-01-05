@@ -7,7 +7,7 @@ class MusicChoose:
         pygame.font.init()
         size = 1350, 720
         screen = pygame.display.set_mode(size)
-        bg = pygame.image.load("fon3.jpg")
+        bg = pygame.image.load("fon1.jpg")
         screen.blit(bg, (0, 0))
         font = pygame.font.Font('C:\Windows\Fonts\Georgia.ttf', 15)
         f = pygame.font.Font('C:\Windows\Fonts\Georgia.ttf', 37)
@@ -85,8 +85,6 @@ class MusicChoose:
                     elif 800 <= x <= 1010 and 450 <= y <= 550:
                         self.song = "little_black_submarines.mp3"
         pygame.quit()
-
-
 if __name__ == '__main__':
     start = MusicChoose()
     start.show()
