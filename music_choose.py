@@ -85,6 +85,8 @@ class MusicChoose:
                     elif 800 <= x <= 1010 and 450 <= y <= 550:
                         self.song = "little_black_submarines.mp3"
         pygame.quit()
+
+
 if __name__ == '__main__':
     start = MusicChoose()
     start.show()
