@@ -90,7 +90,7 @@ class MusicChoose:
         text60 = font.render("The Black Keys", False, (169, 169, 169))
         text6_x = text5_x + width * 0.05 + text5.get_width() + 1
         text6_y = int(height * 0.5)
-        text60_x = text5_x + width * 0.05 + text6.get_width() // 3.3 + text5.get_width() + 1
+        text60_x = text5_x + width * 0.05 + text6.get_width() // 5 + text5.get_width() + 1
         text60_y = int(height * 0.5) + text4.get_height()
         pygame.draw.rect(screen, (169, 169, 169),
                          (text6_x - 5, text6_y - 5, text6.get_width() + 10, text6.get_height() + text60.get_height() + 10), 4)
