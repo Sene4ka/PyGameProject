@@ -2,14 +2,15 @@ import pygame
 from screeninfo import get_monitors
 
 
-class WinchesterChoose:
+class Final:
     def __init__(self):
         pygame.init()
         pygame.display.set_caption('Supernatural: Team free will')
         size = width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
         screen = pygame.display.set_mode(size)
-        fon = pygame.image.load("fon6.jpg")
+        bg = pygame.image.load("fon6.jpg")
+        fon = pygame.transform.scale(bg, (width, height))
         screen.blit(fon, (0, 0))
         font = pygame.font.SysFont('comic sans ms', 50)
 
@@ -52,6 +53,5 @@ class WinchesterChoose:
 
 
 if __name__ == '__main__':
-    pg = WinchesterChoose()
-    pg.show()
+    pg = Final()
     pygame.quit()

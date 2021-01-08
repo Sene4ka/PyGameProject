@@ -1,16 +1,17 @@
 import pygame
+from map import Map
 from screeninfo import get_monitors
-print(get_monitors())
 
 
 class WinchesterChoose:
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption('Supernatural: Team free will')
-        size = width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
-                               int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
-        screen = pygame.display.set_mode(size)
-        fon = pygame.image.load("fon.jpg")
+
+    def draw(self, screen):
+        width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
+                        int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
+        bg = pygame.image.load("fon.jpg")
+        fon = pygame.transform.scale(bg, (width, height))
         screen.blit(fon, (0, 0))
         font = pygame.font.SysFont('comic sans ms', 50)
         txt = font.render('Выберите своего героя', True, (169, 169, 169))
@@ -31,7 +32,7 @@ class WinchesterChoose:
         pygame.draw.rect(screen, (0, 0, 0), (int(width * 0.75) - 5, int(height * 0.4) - 5,
                                              txt3.get_width() + 10, txt3.get_height() + 10), 0)
         pygame.draw.rect(screen, (169, 169, 169), (int(width * 0.75) - 5, int(height * 0.4) - 5,
-                                             txt3.get_width() + 10, txt3.get_height() + 10), 3)
+                                                   txt3.get_width() + 10, txt3.get_height() + 10), 3)
         screen.blit(txt3, (int(width * 0.75), int(height * 0.4)))
 
         sam_dean = pygame.image.load("Sam and Dean.png")
@@ -40,7 +41,8 @@ class WinchesterChoose:
         sam_dean_y = int(height * 0.5) - y // 2
         screen.blit(sam_dean, (sam_dean_x, sam_dean_y))
         pygame.display.update()
-
+        map = Map()
+        checking = True
         running = True
         while running:
             for event in pygame.event.get():
@@ -48,16 +50,15 @@ class WinchesterChoose:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
-                    if 270 <= x <= 365 and 340 <= y <= 400:
-                        hero = Game('Dean')
-                        hero.show()
-                    elif 890 <= x <= 980 and 340 <= y <= 400:
-                        hero = Game('Sam')
-                        hero.show()
+                    if width * 0 <= x < width * 0.5 and height * 0 <= y <= height * 1 and checking:
+                        map.draw(screen, 'Dean')
+                        checking = False
+                    elif width * 0.5 <= x <= width * 1 and height * 0 <= y <= height * 1 and checking:
+                        map.draw(screen, 'Sam')
+                        checking = False
         pygame.display.update()
 
 
 if __name__ == '__main__':
     q = WinchesterChoose()
-    q.show()
     pygame.quit()
