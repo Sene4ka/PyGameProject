@@ -47,7 +47,7 @@ class WinchesterChoose:
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
                     if width * 0 <= x < width * 0.5 and height * 0 <= y <= height * 1 and checking:

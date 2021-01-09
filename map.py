@@ -22,26 +22,52 @@ class Map:
         bg = pygame.image.load("fon6.jpg")
         fon = pygame.transform.scale(bg, (width, height))
         screen.blit(fon, (0, 0))
+        bg_sprites = pygame.sprite.Group()
+        bg_sprite = pygame.sprite.Sprite()
+        bg_sprite.image = fon
+        bg_sprite.rect = bg_sprite.image.get_rect()
+        bg_sprite.rect.x = 0
+        bg_sprite.rect.y = 0
+        bg_sprites.add(bg_sprite)
+        bg_sprites.draw(screen)
+        screen1 = pygame.Surface((width, height))
+        screen1.set_alpha(255)
         hero_sprites = pygame.sprite.Group()
-        sprite = pygame.sprite.Sprite()
-        if hero_type == 'Dean':
-            image = load_image("hero1.png")
-            image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
-            sprite.image = image1
-        elif hero_type == 'Sam':
-            image = load_image("hero2.png")
-            image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
-            sprite.image = image1
-        sprite.rect = sprite.image.get_rect()
-        sprite.rect.x = width * 0.35
-        sprite.rect.y = height * 0.4
+        sprite = Hero(hero_sprites, hero_type)
         hero_sprites.add(sprite)
+        pos1 = height * 0.5
+        pos2 = height * 0.3
         running = True
+        pos = True
+        move = 0
+        clock = pygame.time.Clock()
+        fps = 60
+        hero_sprites.draw(screen)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
-                hero_sprites.draw(screen)
+                    pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    key = event.key
+                    if key == pygame.K_w:
+                        move = -(height * 0.2 * (1 / 25))
+                        sprite.update((0, move))
+                        bg_sprites.draw(screen)
+                        hero_sprites.clear(screen, screen1)
+                    elif key == pygame.K_s:
+                        move = (height * 0.2 * (1 / 25))
+                        sprite.update((0, move))
+                        bg_sprites.draw(screen)
+                        hero_sprites.clear(screen, screen1)
+            if  pos2 <= sprite.get_y() <= pos1:
+                sprite.update((0, move))
+                bg_sprites.draw(screen)
+                hero_sprites.clear(screen, screen1)
+                bg_sprites.draw(screen)
+            if sprite.get_y() == pos1 or sprite.get_y() == pos2:
+                move = 0
+            hero_sprites.draw(screen)
+            clock.tick(fps)
             pygame.display.flip()
         pygame.display.update()
 
