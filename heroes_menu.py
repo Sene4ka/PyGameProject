@@ -78,6 +78,7 @@ class Menu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
                     if self.width * 0.7 <= x <= (self.width * 0.7 + self.kn1.get_width()) and self.height * 0.5 <= y <= (self.height * 0.5 + self.kn1.get_height()):
@@ -139,6 +140,6 @@ class Menu:
         self.screen.blit(descr1, (self.coor_d_x1, self.coor_d_y1))
         self.screen.blit(descr2, (self.coor_d_x2, self.coor_d_y2))
         pygame.display.update()
-    pygame.quit()
+
 if __name__ == '__main__':
     start = Menu()
