@@ -121,7 +121,6 @@ class Menu:
             descr2 = self.font_descr.render(str(d[1]), False, (169, 169, 169))
         else:
             descr2 = ''
-        print(len(d[0]))
         if len(d[0]) >= 100:
             self.coor_d_x1 = self.width * 0.2
         elif len(d[0]) >= 85:
@@ -140,7 +139,6 @@ class Menu:
         self.screen.blit(descr1, (self.coor_d_x1, self.coor_d_y1))
         self.screen.blit(descr2, (self.coor_d_x2, self.coor_d_y2))
         pygame.display.update()
-
+    pygame.quit()
 if __name__ == '__main__':
     start = Menu()
-    start.show()
