@@ -35,9 +35,10 @@ class Menu:
         res = self.cur.execute("""SELECT * FROM Heroes
                                   WHERE Hero = '{}'""".format(geroy)).fetchall()
         new_im = pygame.image.load(geroy)
-        self.new_im = pygame.transform.scale(new_im, (int(self.width * 0.24), int(self.height * 0.45)))
+        self.new_im = pygame.transform.scale(new_im, (int(self.width * 0.2), int(self.height * 0.45)))
         self.font_name = pygame.font.SysFont('comic sans ms', 50)
         self.font_type = pygame.font.SysFont('comic sans ms', 37)
+        n = 'Мэг'
         self.font_descr = pygame.font.SysFont('comic sans ms', 20)
         name = self.font_name.render('Мэг', False, (169, 169, 169))
         tip = self.font_type.render(str(res[0][1]), False, (169, 169, 169))
@@ -47,11 +48,11 @@ class Menu:
             descr2 = self.font_descr.render(str(d[1]), False, (169, 169, 169))
         else:
             descr2 = ''
-        self.coor_im_x = self.width * 0.36
+        self.coor_im_x = self.width * 0.41
         self.coor_im_y = self.height * 0.3
-        self.coor_n_x = self.width * 0.44
+        self.coor_n_x = self.width * 0.48
         self.coor_n_y = self.height * 0.75
-        self.coor_t_x = self.width * 0.45
+        self.coor_t_x = self.width * 0.47
         self.coor_t_y = self.height * 0.8
         if len(d[0]) >= 100:
             self.coor_d_x1 = self.width * 0.2
@@ -113,7 +114,8 @@ class Menu:
                           self.text.get_height() + 10 - 6))
         self.screen.blit(self.text, self.coors)
         new_im = pygame.image.load(geroy)
-        self.new_im = pygame.transform.scale(new_im, (int(self.width * 0.24), int(self.height * 0.45)))
+        self.new_im = pygame.transform.scale(new_im, (int(self.width * 0.2), int(self.height * 0.45)))
+        n = name
         name = self.font_name.render(name, False, (169, 169, 169))
         tip = self.font_type.render(str(res[0][1]), False, (169, 169, 169))
         d = str(res[0][2]).split('. ')
@@ -134,6 +136,10 @@ class Menu:
             self.coor_d_x2 = self.width * 0.25
         else:
             self.coor_d_x2 = self.width * 0.33
+        if n == 'Мэг':
+            self.coor_n_x = self.width * 0.48
+        else:
+            self.coor_n_x = self.width * 0.45
         self.screen.blit(self.new_im, (self.coor_im_x, self.coor_im_y))
         self.screen.blit(name, (self.coor_n_x, self.coor_n_y))
         self.screen.blit(tip, (self.coor_t_x, self.coor_t_y))
