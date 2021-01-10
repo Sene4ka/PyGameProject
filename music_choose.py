@@ -1,6 +1,7 @@
 import pygame
 from screeninfo import get_monitors
 
+
 class MusicChoose:
     def __init__(self):
 
