@@ -49,12 +49,12 @@ class Map:
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     key = event.key
-                    if key == pygame.K_w:
+                    if key == pygame.K_w or key == pygame.K_UP:
                         move = -(height * 0.2 * (1 / 25))
                         sprite.update((0, move))
                         bg_sprites.draw(screen)
                         hero_sprites.clear(screen, screen1)
-                    elif key == pygame.K_s:
+                    elif key == pygame.K_s or key == pygame.K_DOWN:
                         move = (height * 0.2 * (1 / 25))
                         sprite.update((0, move))
                         bg_sprites.draw(screen)
