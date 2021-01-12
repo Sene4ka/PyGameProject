@@ -19,7 +19,7 @@ class Hero(pygame.sprite.Sprite):
             image = load_image("hero1.png")
             image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
         elif hero_type == 'Sam':
-            image = load_image("hero2.png")
+            image = load_image("Impala.png")
             image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
         self.image = image1
         self.rect = self.image.get_rect()

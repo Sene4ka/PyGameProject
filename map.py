@@ -19,7 +19,7 @@ class Map:
     def draw(self, screen, hero_type):
         width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                         int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
-        bg = pygame.image.load("fon6.jpg")
+        bg = pygame.image.load("main_fon.jpg")
         fon = pygame.transform.scale(bg, (width, height))
         screen.blit(fon, (0, 0))
         bg_sprites = pygame.sprite.Group()
@@ -41,7 +41,7 @@ class Map:
         pos = True
         move = 0
         clock = pygame.time.Clock()
-        fps = 60
+        fps = 1000
         hero_sprites.draw(screen)
         while running:
             for event in pygame.event.get():
@@ -49,12 +49,12 @@ class Map:
                     pygame.quit()
                 if event.type == pygame.KEYDOWN:
                     key = event.key
-                    if key == pygame.K_w or key == pygame.K_UP:
+                    if key == pygame.K_w:
                         move = -(height * 0.2 * (1 / 25))
                         sprite.update((0, move))
                         bg_sprites.draw(screen)
                         hero_sprites.clear(screen, screen1)
-                    elif key == pygame.K_s or key == pygame.K_DOWN:
+                    elif key == pygame.K_s:
                         move = (height * 0.2 * (1 / 25))
                         sprite.update((0, move))
                         bg_sprites.draw(screen)
