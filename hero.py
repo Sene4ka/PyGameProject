@@ -16,15 +16,15 @@ class Hero(pygame.sprite.Sprite):
         width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                         int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
         if hero_type == 'Dean':
-            image = load_image("hero1.png")
-            image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
+            image = load_image("dean_impala.png")
+            image1 = pygame.transform.scale(image, (int(width * 0.4), int(height * 0.3)))
         elif hero_type == 'Sam':
-            image = load_image("Impala.png")
-            image1 = pygame.transform.scale(image, (int(width * 0.3), int(height * 0.3)))
+            image = load_image("sam_impala.png")
+            image1 = pygame.transform.scale(image, (int(width * 0.4), int(height * 0.3)))
         self.image = image1
         self.rect = self.image.get_rect()
-        self.rect.x = width * 0.35
-        self.rect.y = height * 0.5
+        self.rect.x = width * 0.21
+        self.rect.y = height * 0.55
 
     def update(self, coords):
         self.rect = self.rect.move(coords[0], coords[1])
