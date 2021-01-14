@@ -1,5 +1,5 @@
 import pygame
-from screeninfo import get_monitors
+from screeninfo import get_monitors # Импортируем модуль для получения размера экрана
 
 
 class Death:
@@ -7,10 +7,10 @@ class Death:
         pygame.init()
         pygame.display.set_caption('Supernatural: Team free will')
         size = width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
-                               int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
+                               int(str(get_monitors()[0]).split('height=')[1][:4]) - 76  # Применение функции get_monitors
         screen = pygame.display.set_mode(size)
         img = pygame.image.load("fon7.jpg")
-        fon = pygame.transform.scale(img, (width, height))
+        fon = pygame.transform.scale(img, (width, height)) # Настройка размера под экран изображения для фона
         screen.blit(fon, (0, 0))
         font = pygame.font.SysFont('comic sans ms', 50)
 
@@ -18,7 +18,8 @@ class Death:
         txt2 = font.render('К сожалению, ты проиграл...', True, (255, 255, 255))
         txt3 = font.render('Хочешь сыграть еще раз?', True, (255, 255, 255))
         txt4 = font.render('Да', True, (0, 0, 0))
-
+        
+        # Нахождение координат текста, спользуя процентны и найденные длину и высоту экрана и самого текста
         txt_x = width // 2 - txt.get_width() // 2
         txt_x2 = width // 2 - txt2.get_width() // 2
         txt_x3 = width // 2 - txt3.get_width() // 2
@@ -28,7 +29,8 @@ class Death:
                                              txt4.get_height()), 0)
         pygame.draw.rect(screen, (128, 128, 128), (txt_x4 - 10, int(height * 0.6),
                                                    txt4.get_width() + 20, txt4.get_height()), 4)
-
+        
+        # Вывод текста на экран
         screen.blit(txt, (txt_x, int(height * 0.1)))
         screen.blit(txt2, (txt_x2, int(height * 0.25)))
         screen.blit(txt3, (txt_x3, int(height * 0.5)))
@@ -44,6 +46,7 @@ class Death:
                     running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
+                    # Проверка, нажал ли на кнопку пользователь 
                     if int(width * 0.25) - 5 <= x <= a and int(height * 0.4) - 5 <= y <= b:
                         pg2 = Beginning()
                         pg2.show()
