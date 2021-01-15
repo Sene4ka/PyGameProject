@@ -44,7 +44,7 @@ while running:
             # позиция нажатия мыши
             x, y = event.pos
             # если нажата кнопка
-            if width * 0.43 <= x <= width * 0.6 and height * 0.61 <= y <= height * 0.85 and checking1:
+            if width * 0.43 <= x <= width * 0.6 and height * 0.61 <= y <= height * 0.85 and checking:
                 # запускаю выбор героя
                 checking1 = False
                 res = menu.draw(screen)
