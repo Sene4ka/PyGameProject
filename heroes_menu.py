@@ -12,11 +12,13 @@ class Menu:
         pygame.font.init()
         # переменная, с помощью которой отслеживается номер героя, о котором читает пользователь
         self.count = 0
+
+    def draw(self, screen):
         pygame.display.set_caption('Supernatural: Team free will')
         # узнаю рамеру экрана пользователя с помощью get_monitors()
         size = self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                          int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
-        self.screen = pygame.display.set_mode(size)
+        self.screen = screen
         # загружаю фон
         bg = pygame.image.load("fon.jpg")
         # меняю рамер изображения фона под размеры экрана
@@ -107,13 +109,13 @@ class Menu:
         # обновляю экран
         pygame.display.update()
         running = True
+        res = True
         menu = WinchesterChoose()
         while running:
             for event in pygame.event.get():
                 # если пользователь закрывает программу
                 if event.type == pygame.QUIT:
-                    running = False
-                    pygame.quit()
+                    return False
                 # если нажимает куда-либо
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
@@ -128,7 +130,9 @@ class Menu:
                         # вызов функции, обновляющей героя
                         self.new_hero()
                     elif self.text_next1 <= x <= (self.text_next1 + self.next.get_width()) and self.text_next2 <= y <= (self.text_next2 + self.next.get_height()):
-                        menu.draw(self.screen)
+                        res = menu.draw(self.screen)
+                if not res:
+                    return False
 
 
     def new_hero(self):

@@ -1,7 +1,9 @@
 import pygame
 from hero import Hero
 from mob import Mob
+from music_choose import MusicChoose
 from screeninfo import get_monitors
+import sqlite3
 
 
 def load_image(name):
@@ -10,14 +12,14 @@ def load_image(name):
     return image
 
 
-def points(point, width, height):
+def points(point, width, height, screen):
     # выводим счет
     font = pygame.font.SysFont('comic sans ms', 50)
     txt = font.render(f'Счет: {point}', True, (0, 0, 0))
     txt_x = width * 0.01
     txt_y = height * 0.01
-    pygame.draw.rect(screen, (0, 0, 0), (txt_x - 10, txt_y + 10,
-                                               txt.get_width() + 20, txt.get_height() + 20), 3)
+    pygame.draw.rect(screen, (0, 0, 0), (txt_x - 10, txt_y - 10,
+                                         txt.get_width() + 20, txt.get_height() + 20), 3)
     screen.blit(txt, (txt_x, int(height * 0.1)))
 
 
@@ -28,10 +30,11 @@ class Map:
         self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                   int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
 
-    def draw(self, screen, hero_type):
+    def draw(self, screen, hero_type, song):
         # создаем экран
         bg = pygame.image.load("main_fon.jpg")
         # создаем фон
+        pygame.mixer.music.load(song)
         fon = pygame.transform.scale(bg, (self.width, self.height))
         bg_sprites = pygame.sprite.Group()
         bg_sprite = pygame.sprite.Sprite()
@@ -48,9 +51,10 @@ class Map:
         hero_sprites = pygame.sprite.Group()
         sprite = Hero(hero_sprites, hero_type)
         hero_sprites.add(sprite)
+        self.p = 5
         # калибруем позиции и границы передвижения
         pos1 = self.height * 0.8
-        pos2 = self.height * 0.62
+        pos2 = self.height * 0.50
         mpos = self.height * 0.71
         running = True
         move = 0
@@ -60,8 +64,12 @@ class Map:
         targets = pygame.sprite.Group()
         mob = Mob()
         targets.add(mob)
+        self.con = sqlite3.connect("spn.db")
+        self.cur = self.con.cursor()
         # рисуем спрайты и начинаем цикл
         hero_sprites.draw(screen)
+        pygame.mixer.music.load(song)
+        pygame.mixer.music.play(-1)
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -109,30 +117,55 @@ class Map:
                 sprite.update((0, move))
                 hero_sprites.clear(screen, screen1)
             # проверяем выход моба за экран
-            if mob.rect.x <= width * 0 - width * 0.2:
+            if mob.rect.x <= self.width * 0 - self.width * 0.2:
                 targets.clear(screen, screen1)
                 targets.remove(mob)
                 mob = Mob()
                 targets.add(mob)
             # проверяем столкновения с машиной
-            if mob.rect.x <= sprite.rect.x + width * 0.3:
+            if mob.rect.x <= sprite.rect.x + self.width * 0.3:
                 if mob.get_y() < mpos:
                     if sprite.get_y() <= mpos:
                         targets.clear(screen, screen1)
                         targets.remove(mob)
+                        type = self.cur.execute("""SELECT Type FROM Heroes
+                                                   WHERE Hero = '{}'""".format(Mob().target)).fetchall()
+                        if type == 'Друг':
+                            self.p -= 1
+                        elif type == 'Враг':
+                            pass
+                            #ЛЮДКА ВСТАВЬ ТУТ СВОЮ СМЕРТЬ!!!!!ТО ЕСТЬ НЕ СВОЮ А ПРСТО
+                        elif type == 'Монстр':
+                            self.p += 1
                         # начисление очков
                 elif mob.get_y() > mpos:
+                    type = self.cur.execute("""SELECT Type FROM Heroes
+                                               WHERE Hero = '{}'""".format(Mob().target)).fetchall()
                     if sprite.get_y() > mpos:
                         targets.clear(screen, screen1)
                         targets.remove(mob)
+                        if type == 'Друг':
+                            self.p -= 1
+                        elif type == 'Враг':
+                            pass
+                            # ЛЮДКА ВСТАВЬ ТУТ СВОЮ СМЕРТЬ!!!!!ТО ЕСТЬ НЕ СВОЮ А ПРСТО
+                        elif type == 'Монстр':
+                            self.p += 1
                         # начисление очков
             # рисуем все спрайты и обновляем
+            if self.p == 20:
+                song = MusicChoose()
+                pygame.mixer.music.load(song)
+                pygame.mixer.music.play(-1)
+            if self.p == 30:
+                pass
+                # ЛЮДКА ВСТАВЬ ТУТ ФИНАЛ + В ФИНАЛ ЕЩЕ НАДО ПОДКЛЮЧИТЬ ПЕСНЮ
             clock.tick(fps)
             bg_sprites.draw(screen)
             targets.draw(screen)
             hero_sprites.draw(screen)
             # выводим очки
-            points(0, width, height)
+            points(self.p, self.width, self.height, screen)
             pygame.display.flip()
         pygame.display.update()
 

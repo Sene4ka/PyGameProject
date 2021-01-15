@@ -8,8 +8,8 @@ class Mob(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.heroes = ['Meg.png', 'Leviafan.png', 'Castiel.png', 'Bobby.png', 'Azazel.png']
-        target = random.choice(self.heroes)
-        self.image = pygame.image.load(target)
+        self.target = random.choice(self.heroes)
+        self.image = pygame.image.load(self.target)
         self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                   int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
         self.image = pygame.transform.scale(self.image, (int(self.width * 0.08), int(self.height * 0.14)))

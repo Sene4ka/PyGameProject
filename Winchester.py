@@ -46,19 +46,22 @@ class WinchesterChoose:
         map = Map()
         checking = True
         running = True
+        res = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    pygame.quit()
+                    return False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
                     # Проверка, нажал ли на кнопки пользователь 
                     if width * 0 <= x < width * 0.5 and height * 0 <= y <= height * 1 and checking:
-                        map.draw(screen, 'Dean')
                         checking = False
+                        res = map.draw(screen, 'Dean')
                     elif width * 0.5 <= x <= width * 1 and height * 0 <= y <= height * 1 and checking:
-                        map.draw(screen, 'Sam')
                         checking = False
+                        res = map.draw(screen, 'Sam')
+                if not res:
+                    return False
         pygame.display.update()
 
 

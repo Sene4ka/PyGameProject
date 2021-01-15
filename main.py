@@ -30,10 +30,10 @@ screen.blit(button, loc)
 # обновляю экран
 pygame.display.update()
 running = True
-checking1 = True
-checking2 = False
-# экземпляр класса выбра своего игрока
+checking = True
+res = True
 menu = Menu()
+# экземпляр класса выбра своего игрока
 while running:
     for event in pygame.event.get():
         # если пользователь закрывает программу
@@ -46,7 +46,9 @@ while running:
             # если нажата кнопка
             if width * 0.43 <= x <= width * 0.6 and height * 0.61 <= y <= height * 0.85 and checking1:
                 # запускаю выбор героя
-                menu.draw(screen)
                 checking1 = False
+                res = menu.draw(screen)
+        if not res:
+            running = False
     pygame.display.flip()
 pygame.quit()
