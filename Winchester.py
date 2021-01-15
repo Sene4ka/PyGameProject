@@ -1,6 +1,7 @@
 import pygame
 from map import Map
-from screeninfo import get_monitors # Импортируем модуль для получения размера экрана
+# Импортируем модуль для получения размера экрана
+from screeninfo import get_monitors
 
 
 class WinchesterChoose:
