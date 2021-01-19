@@ -12,13 +12,11 @@ class Menu:
         pygame.font.init()
         # переменная, с помощью которой отслеживается номер героя, о котором читает пользователь
         self.count = 0
-
-    def draw(self, screen):
         pygame.display.set_caption('Supernatural: Team free will')
         # узнаю рамеру экрана пользователя с помощью get_monitors()
         size = self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                          int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
-        self.screen = screen
+        self.screen = pygame.display.set_mode(size)
         # загружаю фон
         bg = pygame.image.load("fon.jpg")
         # меняю рамер изображения фона под размеры экрана
@@ -40,19 +38,19 @@ class Menu:
         # создаю список с названиями файлов, в которых находятся картинки героев
         self.heroes = ['Meg.png', 'Leviafan.png', 'Castiel.png', 'Bobby.png', 'Azazel.png']
         # заголовок
-        self.text = f.render("Познакомься с героями!", False, (0, 0, 0))
+        self.text = f.render("Познакомься с героями!", False, (169, 169, 169))
         # его координаты, расчитывающиеся в общем виде
         # get_width() - узнаем размер текста
         self.text_x = self.width // 2 - self.text.get_width() // 2
         self.text_y = int(self.height * 0.1)
         self.coors = (self.text_x, self.text_y)
         # рамка для заголовка
-        pygame.draw.rect(self.screen, (0, 0, 0),
+        pygame.draw.rect(self.screen, (169, 169, 169),
                          (self.text_x - 5, self.text_y - 5, self.text.get_width() + 10, self.text.get_height() + 10), 4)
         # фон для заголовка
-        pygame.draw.rect(self.screen, (169, 169, 169),
-                         (self.text_x - 5 + 4, self.text_y - 5 + 4,
-                          self.text.get_width() + 10 - 6, self.text.get_height() + 10 - 6))
+        #pygame.draw.rect(self.screen, (169, 169, 169),
+                         #(self.text_x - 5 + 4, self.text_y - 5 + 4,
+                          #self.text.get_width() + 10 - 6, self.text.get_height() + 10 - 6))
         self.screen.blit(self.text, self.coors)
         self.next = f.render("Далее", False, (0, 0, 0))
         # координаты
@@ -109,13 +107,13 @@ class Menu:
         # обновляю экран
         pygame.display.update()
         running = True
-        res = True
         menu = WinchesterChoose()
         while running:
             for event in pygame.event.get():
                 # если пользователь закрывает программу
                 if event.type == pygame.QUIT:
-                    return False
+                    running = False
+                    pygame.quit()
                 # если нажимает куда-либо
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
@@ -130,9 +128,7 @@ class Menu:
                         # вызов функции, обновляющей героя
                         self.new_hero()
                     elif self.text_next1 <= x <= (self.text_next1 + self.next.get_width()) and self.text_next2 <= y <= (self.text_next2 + self.next.get_height()):
-                        res = menu.draw(self.screen)
-                if not res:
-                    return False
+                        menu.draw(self.screen)
 
 
     def new_hero(self):
@@ -158,11 +154,8 @@ class Menu:
         self.screen.blit(self.kn2, (self.width * 0.3, self.height * 0.5))
         self.screen.blit(self.kn1, (self.width * 0.7, self.height * 0.5))
         # оформление заголовка
-        pygame.draw.rect(self.screen, (0, 0, 0),
-                         (self.text_x - 5, self.text_y - 5, self.text.get_width() + 10, self.text.get_height() + 10), 4)
         pygame.draw.rect(self.screen, (169, 169, 169),
-                         (self.text_x - 5 + 4, self.text_y - 5 + 4, self.text.get_width() + 10 - 6,
-                          self.text.get_height() + 10 - 6))
+                         (self.text_x - 5, self.text_y - 5, self.text.get_width() + 10, self.text.get_height() + 10), 4)
         self.screen.blit(self.text, self.coors)
         # почти то же самое, что в начале кода
         new_im = pygame.image.load(geroy)

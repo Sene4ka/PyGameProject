@@ -4,6 +4,7 @@ from mob import Mob
 from music_choose import MusicChoose
 from screeninfo import get_monitors
 import sqlite3
+from death import Death
 
 
 def load_image(name):
@@ -126,35 +127,41 @@ class Map:
             if mob.rect.x <= sprite.rect.x + self.width * 0.3:
                 if mob.get_y() < mpos:
                     if sprite.get_y() <= mpos:
+                        name = Mob().target
+                        if name == 'Meg.png':
+                            self.p += 1
+                        elif name == 'Leviafan.png':
+                            self.p += 1
+                        elif name == 'Castiel.png':
+                            self.p -= 1
+                        elif name == 'Bobby.png':
+                            self.p -= 1
+                        elif name == 'Azazel.png':
+                            pass
+                            #Death()
                         targets.clear(screen, screen1)
                         targets.remove(mob)
-                        type = self.cur.execute("""SELECT Type FROM Heroes
-                                                   WHERE Hero = '{}'""".format(Mob().target)).fetchall()
-                        if type == 'Друг':
-                            self.p -= 1
-                        elif type == 'Враг':
-                            pass
-                            #ЛЮДКА ВСТАВЬ ТУТ СВОЮ СМЕРТЬ!!!!!ТО ЕСТЬ НЕ СВОЮ А ПРСТО
-                        elif type == 'Монстр':
-                            self.p += 1
-                        # начисление очков
                 elif mob.get_y() > mpos:
-                    type = self.cur.execute("""SELECT Type FROM Heroes
-                                               WHERE Hero = '{}'""".format(Mob().target)).fetchall()
                     if sprite.get_y() > mpos:
+                        name = Mob().target
+                        if name == 'Meg.png':
+                            self.p += 1
+                        elif name == 'Leviafan.png':
+                            self.p += 1
+                        elif name == 'Castiel.png':
+                            self.p -= 1
+                        elif name == 'Bobby.png':
+                            self.p -= 1
+                        elif name == 'Azazel.png':
+                            pass
+                            #Death()
                         targets.clear(screen, screen1)
                         targets.remove(mob)
-                        if type == 'Друг':
-                            self.p -= 1
-                        elif type == 'Враг':
-                            pass
-                            # ЛЮДКА ВСТАВЬ ТУТ СВОЮ СМЕРТЬ!!!!!ТО ЕСТЬ НЕ СВОЮ А ПРСТО
-                        elif type == 'Монстр':
-                            self.p += 1
                         # начисление очков
             # рисуем все спрайты и обновляем
-            if self.p == 20:
+            if self.p ==2:
                 song = MusicChoose()
+                print(str(song))
                 pygame.mixer.music.load(song)
                 pygame.mixer.music.play(-1)
             if self.p == 30:

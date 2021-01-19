@@ -157,6 +157,7 @@ class MusicChoose:
                 # если пользователь закрывает программу
                 if event.type == pygame.QUIT:
                     running = False
+                    pygame.quit()
                 # если нажимает куда-либо
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # позиция мышки
@@ -165,23 +166,30 @@ class MusicChoose:
                     if (text1_x - 5) <= x <= (text1_x - 5 + text1.get_width() + 1) \
                             and (text1_y - 5) <= y <= (text1_y - 5 + text1.get_height() + text10.get_height() + 10):
                         self.song = "heat_of_the_moment.mp3"
+                        self.play_song()
                     elif (text2_x - 5) <= x <= (text2_x - 5 + text2.get_width() + 1) \
                             and (text2_y - 5) <= y <= (text2_y - 5 + text2.get_height() + text20.get_height() + 10):
                         self.song = "fell_on_black_days.mp3"
+                        self.play_song()
                     elif (text3_x - 5) <= x <= (text3_x - 5 + text3.get_width() + 1) \
                             and (text3_y - 5) <= y <= (text3_y - 5 + text3.get_height() + text30.get_height() + 10):
                         self.song = "highway_to_hell.mp3"
+                        self.play_song()
                     elif (text4_x - 5) <= x <= (text4_x - 5 + text4.get_width() + 1) \
                             and (text4_y - 5) <= y <= (text4_y - 5 + text4.get_height() + text40.get_height() + 10):
                         self.song = "o_death.mp3"
+                        self.play_song()
                     elif (text5_x - 5) <= x <= (text5_x - 5 + text5.get_width() + 1) \
                             and (text5_y - 5) <= y <= (text5_y - 5 + text5.get_height() + text50.get_height() + 10):
                         self.song = "god_was_never.mp3"
+                        self.play_song()
                     elif (text6_x - 5) <= x <= (text6_x - 5 + text6.get_width() + 1) \
                             and (text6_y - 5) <= y <= (text6_y - 5 + text6.get_height() + text60.get_height() + 10):
                         self.song = "little_black_submarines.mp3"
-                    return self.song
-        pygame.quit()
+                        self.play_song()
+
+    def play_song(self):
+        return self.song
 
 
 if __name__ == '__main__':
