@@ -63,7 +63,7 @@ class Map:
         fps = 1000
         # создаем мобов
         targets = pygame.sprite.Group()
-        mob = Mob()
+        mob = Mob(self.width + self.width * 0.2)
         targets.add(mob)
         self.con = sqlite3.connect("spn.db")
         self.cur = self.con.cursor()
@@ -121,13 +121,18 @@ class Map:
             if mob.rect.x <= self.width * 0 - self.width * 0.2:
                 targets.clear(screen, screen1)
                 targets.remove(mob)
-                mob = Mob()
+                mob = Mob(self.width + self.width * 0.2)
                 targets.add(mob)
             # проверяем столкновения с машиной
             if mob.rect.x <= sprite.rect.x + self.width * 0.3:
                 if mob.get_y() < mpos:
                     if sprite.get_y() <= mpos:
-                        name = Mob().target
+                        name = mob.target
+                        x = mob.rect.x
+                        targets.clear(screen, screen1)
+                        targets.remove(mob)
+                        mob = Mob((self.width + self.width * 0.2) + (x + (self.width * 0.2)))
+                        targets.add(mob)
                         if name == 'Meg.png':
                             self.p += 1
                         elif name == 'Leviafan.png':
@@ -139,11 +144,14 @@ class Map:
                         elif name == 'Azazel.png':
                             pass
                             #Death()
-                        targets.clear(screen, screen1)
-                        targets.remove(mob)
                 elif mob.get_y() > mpos:
                     if sprite.get_y() > mpos:
-                        name = Mob().target
+                        name = mob.target
+                        x = mob.rect.x
+                        targets.clear(screen, screen1)
+                        targets.remove(mob)
+                        mob = Mob((self.width + self.width * 0.2) + (x + (self.width * 0.2)))
+                        targets.add(mob)
                         if name == 'Meg.png':
                             self.p += 1
                         elif name == 'Leviafan.png':
@@ -155,11 +163,9 @@ class Map:
                         elif name == 'Azazel.png':
                             pass
                             #Death()
-                        targets.clear(screen, screen1)
-                        targets.remove(mob)
                         # начисление очков
             # рисуем все спрайты и обновляем
-            if self.p ==2:
+            if self.p == 2:
                 song = MusicChoose()
                 print(str(song))
                 pygame.mixer.music.load(song)

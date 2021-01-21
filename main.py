@@ -29,7 +29,10 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             x, y = event.pos
             if width * 0.43 <= x <= width * 0.6 and height * 0.61 <= y <= height * 0.85 and checking1:
-                menu.draw(screen)
                 checking1 = False
+                res = menu.draw()
+                if not res:
+                    running = False
+
     pygame.display.flip()
 pygame.quit()

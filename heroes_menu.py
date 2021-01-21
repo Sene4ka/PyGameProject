@@ -12,6 +12,8 @@ class Menu:
         pygame.font.init()
         # переменная, с помощью которой отслеживается номер героя, о котором читает пользователь
         self.count = 0
+
+    def draw(self):
         pygame.display.set_caption('Supernatural: Team free will')
         # узнаю рамеру экрана пользователя с помощью get_monitors()
         size = self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
@@ -128,7 +130,9 @@ class Menu:
                         # вызов функции, обновляющей героя
                         self.new_hero()
                     elif self.text_next1 <= x <= (self.text_next1 + self.next.get_width()) and self.text_next2 <= y <= (self.text_next2 + self.next.get_height()):
-                        menu.draw(self.screen)
+                        res = menu.draw(self.screen)
+                        if not res:
+                         return False
 
 
     def new_hero(self):
