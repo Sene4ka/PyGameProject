@@ -28,14 +28,21 @@ def points(point, width, height, screen):
 class Map:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
         self.width, self.height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                   int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
+
+    def music_play(self):
+        pygame.mixer.init()
+        pygame.mixer.music.pause()
+        song = MusicChoose().play_song()
+        pygame.mixer.music.load(song)
+        pygame.mixer.music.play(-1)
 
     def draw(self, screen, hero_type, song):
         # создаем экран
         bg = pygame.image.load("main_fon.jpg")
         # создаем фон
-        pygame.mixer.music.load(song)
         fon = pygame.transform.scale(bg, (self.width, self.height))
         bg_sprites = pygame.sprite.Group()
         bg_sprite = pygame.sprite.Sprite()
@@ -128,48 +135,44 @@ class Map:
                 if mob.get_y() < mpos:
                     if sprite.get_y() <= mpos:
                         name = mob.target
+                        res = self.cur.execute("""SELECT * FROM Heroes
+                                                  WHERE Hero = '{}'""".format(name)).fetchall()
+                        type = str(res[0][1])
                         x = mob.rect.x
                         targets.clear(screen, screen1)
                         targets.remove(mob)
                         mob = Mob((self.width + self.width * 0.2) + (x + (self.width * 0.2)))
                         targets.add(mob)
-                        if name == 'Meg.png':
-                            self.p += 1
-                        elif name == 'Leviafan.png':
-                            self.p += 1
-                        elif name == 'Castiel.png':
-                            self.p -= 1
-                        elif name == 'Bobby.png':
-                            self.p -= 1
-                        elif name == 'Azazel.png':
+                        if type == 'Друг':
+                            self.p -= 5
+                        elif type == 'Монстр':
+                            self.p += 5
+                        elif type == 'Враг':
                             pass
-                            #Death()
+                            #DEATH!!!!!!!!!!
                 elif mob.get_y() > mpos:
                     if sprite.get_y() > mpos:
                         name = mob.target
+                        res = self.cur.execute("""SELECT * FROM Heroes
+                                                  WHERE Hero = '{}'""".format(name)).fetchall()
+                        type = str(res[0][1])
                         x = mob.rect.x
                         targets.clear(screen, screen1)
                         targets.remove(mob)
                         mob = Mob((self.width + self.width * 0.2) + (x + (self.width * 0.2)))
                         targets.add(mob)
-                        if name == 'Meg.png':
-                            self.p += 1
-                        elif name == 'Leviafan.png':
-                            self.p += 1
-                        elif name == 'Castiel.png':
-                            self.p -= 1
-                        elif name == 'Bobby.png':
-                            self.p -= 1
-                        elif name == 'Azazel.png':
+                        if type == 'Друг':
+                            self.p -= 5
+                        elif type == 'Монстр':
+                            self.p += 5
+                        elif type == 'Враг':
                             pass
-                            #Death()
+                            #DEATH!!!!!!!!!!
+
                         # начисление очков
             # рисуем все спрайты и обновляем
-            if self.p == 2:
-                song = MusicChoose()
-                print(str(song))
-                pygame.mixer.music.load(song)
-                pygame.mixer.music.play(-1)
+            if self.p == 20:
+                self.music_play()
             if self.p == 30:
                 pass
                 # ЛЮДКА ВСТАВЬ ТУТ ФИНАЛ + В ФИНАЛ ЕЩЕ НАДО ПОДКЛЮЧИТЬ ПЕСНЮ
@@ -189,5 +192,5 @@ if __name__ == "__main__":
                            int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
     screen = pygame.display.set_mode(size)
     m = Map()
-    m.draw(screen, "Dean")
+    m.draw(screen, "Dean", 'carry_on.mp3')
 pygame.quit()
