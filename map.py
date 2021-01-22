@@ -2,7 +2,7 @@ import pygame
 from hero import Hero
 from mob import Mob
 from music_choose import MusicChoose
-from Final import Final
+from final import Final
 from screeninfo import get_monitors
 import sqlite3
 from death import Death
