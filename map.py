@@ -2,6 +2,7 @@ import pygame
 from hero import Hero
 from mob import Mob
 from music_choose import MusicChoose
+from Final import Final
 from screeninfo import get_monitors
 import sqlite3
 from death import Death
@@ -21,7 +22,7 @@ def points(point, width, height, screen):
     txt_y = height * 0.01
     pygame.draw.rect(screen, (0, 0, 0), (txt_x - 10, txt_y - 10,
                                          txt.get_width() + 20, txt.get_height() + 20), 3)
-    screen.blit(txt, (txt_x, int(height * 0.1)))
+    screen.blit(txt, (txt_x, int(height * 0.01)))
 
 
 
@@ -34,7 +35,6 @@ class Map:
 
     def music_play(self):
         pygame.mixer.init()
-        pygame.mixer.music.pause()
         song = MusicChoose().play_song()
         pygame.mixer.music.load(song)
         pygame.mixer.music.play(-1)
@@ -148,8 +148,8 @@ class Map:
                         elif type == 'Монстр':
                             self.p += 5
                         elif type == 'Враг':
-                            pass
-                            #DEATH!!!!!!!!!!
+                            d = Death()
+                            d.show()
                 elif mob.get_y() > mpos:
                     if sprite.get_y() > mpos:
                         name = mob.target
@@ -166,16 +166,16 @@ class Map:
                         elif type == 'Монстр':
                             self.p += 5
                         elif type == 'Враг':
-                            pass
-                            #DEATH!!!!!!!!!!
+                            d = Death()
+                            d.show()
 
                         # начисление очков
             # рисуем все спрайты и обновляем
             if self.p == 20:
                 self.music_play()
-            if self.p == 30:
-                pass
-                # ЛЮДКА ВСТАВЬ ТУТ ФИНАЛ + В ФИНАЛ ЕЩЕ НАДО ПОДКЛЮЧИТЬ ПЕСНЮ
+            if self.p == 15:
+                m = Final()
+                m.show()
             clock.tick(fps)
             bg_sprites.draw(screen)
             targets.draw(screen)
