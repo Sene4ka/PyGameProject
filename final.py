@@ -1,5 +1,6 @@
 import pygame
 from screeninfo import get_monitors
+import main
 
 
 class Final:
@@ -47,16 +48,13 @@ class Final:
                     pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
+                    # Координваты границ кнопки
                     a = txt_x4 + txt4.get_width() + 10
                     b = int(height * 0.6) + txt4.get_height()
                     if txt_x4 - 10 <= x <= a and int(height * 0.6) <= y <= b:
-                        pass
-                        #pg2 = Beginning()
-                        #pg2.show()
+                        pg2 = main.Beginning()
         pygame.display.update()
 
 
 if __name__ == '__main__':
     pg = Final()
-    pg.show()
-    pygame.quit()
