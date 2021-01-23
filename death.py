@@ -1,5 +1,6 @@
 import pygame
 from screeninfo import get_monitors
+import main
 
 
 class Death:
@@ -46,16 +47,15 @@ class Death:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    pygame.quit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    x, y = event.pos
+                    x, y = event.pos                
+                    # Координваты границ кнопки
+                    a = txt_x4 + txt4.get_width() + 10
+                    b = int(height * 0.6) + txt4.get_height()
                     if int(width * 0.25) - 5 <= x <= a and int(height * 0.4) - 5 <= y <= b:
-                        # WHAT THE FUCK IS a AND b????????????????????????77
-                        pass
-                        #pg2 = Beginning()
-                        #pg2.show()
+                        pg2 = Beginning()
 
 
 if __name__ == '__main__':
     pg = Death()
-    pg.show()
-    pygame.quit()
