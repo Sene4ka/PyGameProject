@@ -81,7 +81,7 @@ class Map:
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    return False
+                    return "quit"
                 # проверяем на нажатие клавиш
                 if event.type == pygame.KEYDOWN:
                     key = event.key
@@ -149,7 +149,7 @@ class Map:
                             self.p += 5
                         elif type == 'Враг':
                             d = Death()
-                            d.show()
+                            res = d.draw()
                 elif mob.get_y() > mpos:
                     if sprite.get_y() > mpos:
                         name = mob.target
@@ -167,7 +167,8 @@ class Map:
                             self.p += 5
                         elif type == 'Враг':
                             d = Death()
-                            d.show()
+                            res = d.draw()
+                            return res
 
                         # начисление очков
             # рисуем все спрайты и обновляем
@@ -175,7 +176,8 @@ class Map:
                 self.music_play()
             if self.p == 15:
                 m = Final()
-                m.show()
+                res = m.draw()
+                return res
             clock.tick(fps)
             bg_sprites.draw(screen)
             targets.draw(screen)

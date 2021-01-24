@@ -8,6 +8,8 @@ class Beginning:
     def __init__(self):
         # инициализирую pygame
         pygame.init()
+
+    def draw(self):
         # заголовок окна
         pygame.display.set_caption('Supernatural: Team free will')
         BLACK = (0, 0, 0)
@@ -49,13 +51,13 @@ class Beginning:
                     # если нажата кнопка
                     if width * 0.43 <= x <= width * 0.6 and height * 0.61 <= y <= height * 0.85 and checking1:
                         checking1 = False
-                        res = menu.draw()
-                        if not res:
-                            running = False
-
+                        res = menu.draw(screen)
+                        if res == "quit":
+                            break
             pygame.display.flip()
         pygame.quit()
 
 
 if __name__ == '__main__':
     pg = Beginning()
+    res = pg.draw()

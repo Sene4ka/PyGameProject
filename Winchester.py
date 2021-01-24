@@ -57,8 +57,8 @@ class WinchesterChoose:
                     elif width * 0.5 <= x <= width * 1 and height * 0 <= y <= height * 1 and checking:
                         checking = False
                         res = map.draw(screen, 'Sam', song)
-                        if not res:
-                            return False
+                        if res == "quit":
+                            return res
         pygame.display.update()
 
 

@@ -1,6 +1,5 @@
 import pygame
 from screeninfo import get_monitors
-import main
 
 
 class Death:
@@ -10,6 +9,7 @@ class Death:
         pygame.mixer.init()
         pygame.mixer.music.load('o_death.mp3')
         pygame.mixer.music.play(-1)
+    def draw(self):
         pygame.display.set_caption('Supernatural: Team free will')
         size = width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
@@ -54,7 +54,7 @@ class Death:
                     a = txt_x4 + txt4.get_width() + 10
                     b = int(height * 0.6) + txt4.get_height()
                     if int(width * 0.25) - 5 <= x <= a and int(height * 0.4) - 5 <= y <= b:
-                        pg2 = Beginning()
+                        return "restart"
 
 
 if __name__ == '__main__':
