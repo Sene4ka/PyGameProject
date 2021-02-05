@@ -1,11 +1,15 @@
 import pygame
 from screeninfo import get_monitors
+from map2 import Map
 
 
 class MusicChoose:
-    def __init__(self):
+    def __init__(self, screen, hero):
+        self.hero = hero
         # инициализирую pygame
+        self.screen = screen
         pygame.init()
+        pygame.mixer.init()
         pygame.font.init()
         # заголовок окна
         pygame.display.set_caption('Supernatural: Team free will')
@@ -189,7 +193,10 @@ class MusicChoose:
                         self.play_song()
 
     def play_song(self):
-        return self.song
+        points = 20
+        map = Map()
+        res = map.draw(self.screen, self.hero, self.song, points)
+        pygame.display.update()
 
 
 if __name__ == '__main__':

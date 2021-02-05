@@ -8,8 +8,6 @@ class Final:
         pygame.mixer.init()
         pygame.mixer.music.load('eye_of_the_tiger.mp3')
         pygame.mixer.music.play(-1)
-
-    def draw(self):
         pygame.display.set_caption('Supernatural: Team free will')
         size = width, height = int(str(get_monitors()[0]).split('width=')[1][:4]), \
                                int(str(get_monitors()[0]).split('height=')[1][:4]) - 76
@@ -55,7 +53,7 @@ class Final:
                     # Координваты границ кнопки
                     a = txt_x4 + txt4.get_width() + 10
                     b = int(height * 0.6) + txt4.get_height()
-                    # Проверка, нажал ли на кнопку пользователь 
+                    # Проверка, нажал ли на кнопку пользователь
                     if txt_x4 - 10 <= x <= a and int(height * 0.6) <= y <= b:
                         return "restart"
         pygame.display.update()

@@ -1,5 +1,7 @@
 import pygame
 from screeninfo import get_monitors
+import pygame
+from screeninfo import get_monitors
 import random
 
 

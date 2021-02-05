@@ -1,7 +1,6 @@
 import pygame
 from hero import Hero
 from mob import Mob
-from music_choose import MusicChoose
 from final import Final
 from screeninfo import get_monitors
 import sqlite3
@@ -76,10 +75,6 @@ class Map:
         pygame.mixer.music.load(song)
         pygame.mixer.music.play(-1)
         while running:
-            if self.p == 20:
-                song = self.music_play()
-                pygame.mixer.music.load(song)
-                pygame.mixer.music.play(-1)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     return False
@@ -136,7 +131,6 @@ class Map:
                 if mob.get_y() < mpos:
                     if sprite.get_y() <= mpos:
                         name = mob.target
-                        # получаем тип героя, которого убили
                         res = self.cur.execute("""SELECT * FROM Heroes
                                                   WHERE Hero = '{}'""".format(name)).fetchall()
                         type = str(res[0][1])
@@ -171,8 +165,8 @@ class Map:
 
                         # начисление очков
             # рисуем все спрайты и обновляем
-            if self.p == 20:
-                m = MusicChoose(screen, hero_type)
+            if self.p == 40:
+                m = Final()
             if self.p == 0:
                 m = Death()
             clock.tick(fps)
