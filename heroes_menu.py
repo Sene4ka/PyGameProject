@@ -1,6 +1,6 @@
 import pygame
 import sqlite3
-from Winchester import WinchesterChoose
+from winchester import WinchesterChoose
 # модуль, позволяющий нам узнать размеры экрана
 from screeninfo import get_monitors
 
